@@ -1,6 +1,0 @@
-[submodule "backend"]
-	path = backend
-	url = https://github.com/Soohyeuk/league_skin_rec
-[submodule "frontend"]
-	path = frontend
-	url = https://github.com/Soohyeuk/league_skin_rec
