@@ -1,0 +1,5 @@
+*.sqlite3
+*.sqlite 
+*.db 
+*.DS_store
+*.rest 
