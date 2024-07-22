@@ -1,8 +1,8 @@
 import React, { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import './LogIn.css';
+import './SignIn.css';
 
-const LogIn: React.FC = () => {
+const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -51,6 +51,14 @@ const LogIn: React.FC = () => {
           <div className="login-form">
             <form onSubmit={handleSubmit}>
               <input
+                type="text"
+                name="username"
+                required
+                placeholder="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
+              <input
                 type="email"
                 name="email"
                 required
@@ -58,6 +66,7 @@ const LogIn: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
               />
+
               <input
                 type="password"
                 name="password"
@@ -83,4 +92,4 @@ const LogIn: React.FC = () => {
   );
 };
 
-export default LogIn;
+export default SignIn;

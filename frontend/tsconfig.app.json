@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/components/Home/champList.json"]
+  "include": ["src", "src/components/Home/champList.json", "src/components/Home/skin_list_per_champ.json"]
 }

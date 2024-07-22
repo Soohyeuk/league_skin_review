@@ -52,7 +52,7 @@ input {
     width: 300px;
 }
 
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text] {
     padding-left: 10px;
 } 
 
@@ -67,6 +67,10 @@ input:nth-child(2) {
 }
 
 input:nth-child(3) {
+    border-radius: 0px;
+}
+
+input:last-child {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }

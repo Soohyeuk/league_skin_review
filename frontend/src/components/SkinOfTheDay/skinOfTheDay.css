@@ -24,3 +24,8 @@
     font-size: 25px;
     background-color: rgb(253, 247, 240);
 }
+
+.skinoftheday-img {
+    width: 60%;
+    image-rendering: optimizeQuality;
+}

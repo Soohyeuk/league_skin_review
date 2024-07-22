@@ -45,7 +45,7 @@ const SkinOfTheDay = () => {
         {result.map((value) => {
           return (
             <div className='day-hero-container'>
-              <img src={value.skin_img}/>
+              <img src='http://127.0.0.1:8000/static/Akali_14.jpg' className='skinoftheday-img'/>
               <div className='day-hero-title'>
                 <h1>{value.skin_name}</h1>
               </div>

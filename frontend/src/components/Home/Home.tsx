@@ -1,21 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Home.css'
 import Header from '../Header/Header'
 import champList from './champList.json'
 
-
 const Home = () => {
-  // const apikey = "RGAPI-92fa99c5-5fd2-4924-8260-9df68e886717"
-  // const champNameUrl = 'https://ddragon.leagueoflegends.com/cdn/14.13.1/data/en_US/champion.json' + '?api_key=' + apikey
+  const champNameUrl = 'https://ddragon.leagueoflegends.com/cdn/14.13.1/data/en_US/'
+
 
   const champIconList = Object.keys(champList.data)
-  
   return (
     <div>
         <Header/>
         <div className='home-hero-container'>
           <div className='home-hero'>
-            <h1>yoyoyo</h1>
+            <h1>Have any skin you like? Leave a review!</h1>
             <div className='par-wrapper'>
               <p>
                 yoyooyyoyoyo
@@ -31,7 +29,7 @@ const Home = () => {
               <div className='champ-list-container'>
                 {champIconList.map((name) => (
                   <div key={name} className='champ-icon-and-name'>
-                    <img src= {`/src/img/champion/${name}.png`}/>
+                    <img src= {`/src/img/champion/${name}.png`} className='champ-tiles'/>
                     <p>{name === 'MonkeyKing' ? 'Wukong' : name}</p>
                   </div>
                 ))}
