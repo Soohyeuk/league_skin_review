@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
@@ -35,3 +36,13 @@ class UserView(ListAPIView):
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
 
+class UserDetailView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    queryset = get_user_model().objects.all()
+
+    def get_object(self):
+        user_id = self.kwargs.get('pk')  # Get the ID from the URL parameters
+        try:
+            return get_user_model().objects.get(pk=user_id)
+        except get_user_model().DoesNotExist:
+            raise Exception('User not found')

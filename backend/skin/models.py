@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Skins(models.Model):
-    skin_img = models.ImageField()
+    skin_img = models.ImageField(upload_to='static/')
     skin_name = models.CharField(max_length=30, unique=True)
     release_date = models.DateTimeField()
     price = models.IntegerField()
@@ -17,3 +17,4 @@ class Skins(models.Model):
            return reviews.aggregate(models.Avg('rating')).get('rating__avg')
         return  0 
     
+    #need a function that calculates skin of the day/week (or it can be done with picking it manually every day/week).

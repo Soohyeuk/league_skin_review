@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import './LogIn.css';
 
@@ -35,6 +35,7 @@ const LogIn: React.FC = () => {
       }
 
       const result = await res.json();
+      localStorage.setItem('token', result.token);
       console.log('Success:', result);
       // Handle success (e.g., redirect to another page or show a success message)
     } catch (error) {
@@ -43,6 +44,15 @@ const LogIn: React.FC = () => {
     }
   };
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   return (
     <div>
       <div className="login-container">
@@ -50,6 +60,14 @@ const LogIn: React.FC = () => {
           <h1 className='header1'>Log In</h1>
           <div className="login-form">
             <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="username"
+                required
+                placeholder="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
               <input
                 type="email"
                 name="email"
@@ -76,6 +94,13 @@ const LogIn: React.FC = () => {
             <Link to="/recover_account" className="signin-link">
               Forgot a password?
             </Link>
+          </div>
+          <div>
+            {isAuthenticated ? (
+              <p>Welcome back!</p>
+            ) : (
+              <p>Please log in.</p>
+            )}
           </div>
         </div>
       </div>

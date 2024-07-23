@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Home.css'
 import Header from '../Header/Header'
 import champList from './champList.json'
+import {useNavigate } from 'react-router-dom'
 
 const Home = () => {
-  const champNameUrl = 'https://ddragon.leagueoflegends.com/cdn/14.13.1/data/en_US/'
-
+  const navigate = useNavigate();
+  const handleClick = (name:string) => {
+    const nav_url = 'skin/' + name; 
+    navigate(nav_url);
+  }
 
   const champIconList = Object.keys(champList.data)
   return (
@@ -16,7 +20,7 @@ const Home = () => {
             <h1>Have any skin you like? Leave a review!</h1>
             <div className='par-wrapper'>
               <p>
-                yoyooyyoyoyo
+                All skins in League of Legends are rated by the users, and is granted a tier. Let your opinion be part of it too! 
               </p>
             </div>
           </div>
@@ -29,7 +33,7 @@ const Home = () => {
               <div className='champ-list-container'>
                 {champIconList.map((name) => (
                   <div key={name} className='champ-icon-and-name'>
-                    <img src= {`/src/img/champion/${name}.png`} className='champ-tiles'/>
+                    <img src= {`/src/img/champion/${name}.png`} className='champ-tiles' onClick={() => handleClick(name)}/>
                     <p>{name === 'MonkeyKing' ? 'Wukong' : name}</p>
                   </div>
                 ))}

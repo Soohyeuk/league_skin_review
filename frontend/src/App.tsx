@@ -12,7 +12,7 @@ function App() {
         <Route path='/login' element={<LogIn/>} />
         <Route path='/signin' element={<SignIn/>} />
         <Route path='/skin_of_the_day' element={<SkinOfTheDay/>} />
-        <Route path='/skin/:name' element={<Home/>}/>
+        <Route path='/skin/:name' element={<SkinOfTheDay/>}/>
     </Routes>
   )
 }
