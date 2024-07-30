@@ -6,4 +6,5 @@ urlpatterns = [
     path('comments/', include('comments.urls')),
     path('skin/', include('skin.urls')),
     path('admin/', admin.site.urls),
+    path('article/', include('article.urls')),
 ]

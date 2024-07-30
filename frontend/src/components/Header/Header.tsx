@@ -42,7 +42,7 @@ const Header = () => {
         <nav className='header-links'>
             <Link className='links' to={'/'}>Skin Reviews</Link>
             <Link className='links' to={'/skin_of_the_day'}>Skin of the Day</Link>
-            <Link className='links' to={'/'}>Skin Releases</Link>
+            <Link className='links' to={'/skin_releases'}>Skin Releases</Link>
             <Link className='links' to={'/'}>Your Comments</Link>
         </nav>
         <div className='header-user'>

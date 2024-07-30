@@ -1,8 +1,9 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import './LogIn.css';
 
 const LogIn: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -50,6 +51,7 @@ const LogIn: React.FC = () => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
+      navigate('/');
     }
   }, []);
 
@@ -96,8 +98,8 @@ const LogIn: React.FC = () => {
             </Link>
           </div>
           <div>
-            {isAuthenticated ? (
-              <p>Welcome back!</p>
+            {isAuthenticated ? (  
+              <p>You are logged in.</p>
             ) : (
               <p>Please log in.</p>
             )}

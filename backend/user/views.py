@@ -9,7 +9,6 @@ from django.shortcuts import get_object_or_404
 from .serializers import UserSerializer
 from rest_framework.generics import ListAPIView
 
-
 @api_view(['POST'])
 def login(request):
     user = get_object_or_404(get_user_model(), username=request.data['username'])
