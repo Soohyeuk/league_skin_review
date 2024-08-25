@@ -1,59 +1,33 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import './LogIn.css';
+import axios from "axios"
+import { AuthAtom } from '../../recoil/AuthAtom';
+import {useSetRecoilState} from "recoil"
 
 const LogIn: React.FC = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
     password: ''
   });
+  const setAccessToken = useSetRecoilState(AuthAtom); 
 
+  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios.post('http://127.0.0.1:8000/user/token/', {username:formData['username'], password:formData['password']}).then((res)=>{
+      console.log(res.data)
+      setAccessToken(res.data.access)
+    })
+  }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const url = 'http://127.0.0.1:8000/user/login/'; // Replace with your API endpoint
-
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      const result = await res.json();
-      localStorage.setItem('token', result.token);
-      console.log('Success:', result);
-      // Handle success (e.g., redirect to another page or show a success message)
-    } catch (error) {
-      console.error('Error:', error);
-      // Handle error (e.g., show an error message)
-    }
-  };
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticated(true);
-      navigate('/');
-    }
-  }, []);
+  
 
   return (
     <div>
@@ -71,14 +45,6 @@ const LogIn: React.FC = () => {
                 onChange={handleChange}
               />
               <input
-                type="email"
-                name="email"
-                required
-                placeholder="email address"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <input
                 type="password"
                 name="password"
                 required
@@ -86,7 +52,7 @@ const LogIn: React.FC = () => {
                 value={formData.password}
                 onChange={handleChange}
               />
-              <input type="submit" value="Log In" />
+              <input type="submit" value="Log In"/>
             </form>
           </div>
           <div className="links">
@@ -97,13 +63,7 @@ const LogIn: React.FC = () => {
               Forgot a password?
             </Link>
           </div>
-          <div>
-            {isAuthenticated ? (  
-              <p>You are logged in.</p>
-            ) : (
-              <p>Please log in.</p>
-            )}
-          </div>
+
         </div>
       </div>
     </div>
