@@ -1,5 +1,5 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import React, { useState, FormEvent } from 'react';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
 import './LogIn.css';
 import axios from "axios"
 import { AuthAtom } from '../../recoil/AuthAtom';
@@ -10,13 +10,17 @@ const LogIn: React.FC = () => {
     username: '',
     password: ''
   });
-  const setAccessToken = useSetRecoilState(AuthAtom); 
+  const setAccessToken = useSetRecoilState(AuthAtom);  
+  const navigate = useNavigate(); 
+  const location = useLocation();
+  const from = location?.state?.redirectedFrom?.pathname || "/"; 
 
   const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios.post('http://127.0.0.1:8000/user/token/', {username:formData['username'], password:formData['password']}).then((res)=>{
-      console.log(res.data)
       setAccessToken(res.data.access)
+      localStorage.setItem('tokens', JSON.stringify(res.data.access))
+      navigate(from);
     })
   }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +30,6 @@ const LogIn: React.FC = () => {
       [name]: value,
     }));
   };
-
-  
 
   return (
     <div>

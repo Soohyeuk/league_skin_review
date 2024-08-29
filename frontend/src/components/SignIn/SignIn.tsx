@@ -47,7 +47,7 @@ const SignIn: React.FC = () => {
     <div>
       <div className="login-container">
         <div className="login-container-window">
-          <h1 className='header1'>Log In</h1>
+          <h1 className='header1'>Sign In</h1>
           <div className="login-form">
             <form onSubmit={handleSubmit}>
               <input

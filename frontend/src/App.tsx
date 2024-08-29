@@ -12,11 +12,11 @@ function App() {
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route element={<ProtectedRoute/>}> {/*this is a multi-layered route for Authentication page */}
-        <Route path='/signin' element={<SignIn/>}/>
+        <Route path='/someshit' element={<SignIn/>}/>
       </Route>
       <Route path='/login' element={<LogIn/>} />
-      {/* <Route path='/signin' element={<SignIn/>} /> */}
-      <Route path='/skin_releases' element={<SkinRelease/>}/>
+      <Route path='/signin' element={<SignIn/>} />
+      <Route path='/skin_releases' element={<SkinRelease/>}/> 
       <Route path='/skin_of_the_day' element={<SkinOfTheDay/>} />
       <Route path='/skin/:name' element={<ChampSkinList/>}/>
     </Routes>
