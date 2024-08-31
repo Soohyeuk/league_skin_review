@@ -19,7 +19,7 @@ type ResultProps = {
   average_rating: number 
 }
 
-const SkinOfTheDay = () => {
+const SkinOfTheDay : React.FC = () => {
 
   const [result, setResult] = useState<ResultProps[]>([]);
     useEffect(() => {

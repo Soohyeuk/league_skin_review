@@ -6,7 +6,7 @@ const SkinRelease = () => {
   return (
     <div>
       <Header/>
-      <body className='body-container'>
+      <div className='body-container'>
         <article className='hero-container'>
             <div className='hero'>
                 This is where new release article should be at with its picture. 
@@ -18,7 +18,7 @@ const SkinRelease = () => {
                 
             </div>
         </article>
-      </body>
+      </div>
     </div>
   )
 }

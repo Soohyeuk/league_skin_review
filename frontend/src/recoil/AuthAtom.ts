@@ -1,5 +1,9 @@
 import {atom, selector} from "recoil";
 
+export const AuthUser = atom({
+  key: 'user_data',
+  default: undefined, 
+})
 
 export const AuthAtom = atom({
   key: 'Token',
