@@ -3,7 +3,6 @@ import './Header.css'
 import {useRecoilValue, useSetRecoilState} from "recoil"
 import { AuthAtom, AuthUser, isLoginSelector } from '../../recoil/AuthAtom';
 
-
 const Header : React.FC = () => {
   const navigate = useNavigate();
   const setToken = useSetRecoilState(AuthAtom); 
@@ -18,19 +17,19 @@ const Header : React.FC = () => {
   return (
     <header className='header'>
         <div className='header-image'>
-            <img src="https://placehold.co/50x50" alt="" onClick={() => {navigate('/')}}/>
+            <img className='hover' src="https://placehold.co/50x50" alt="" onClick={() => {navigate('/')}}/>
             <p>LOL</p>
         </div>
         <nav className='header-links'>
-            <Link className='links' to={'/'}>Skin Reviews</Link>
-            <Link className='links' to={'/skin_of_the_day'}>Skin of the Day</Link>
-            <Link className='links' to={'/skin_releases'}>Skin Releases</Link>
-            <Link className='links' to={'/'}>Your Comments</Link>
+            <Link className='links hover' to={'/'}>Skin Reviews</Link>
+            <Link className='links hover' to={'/skin_of_the_day'}>Skin of the Day</Link>
+            <Link className='links hover' to={'/skin_releases'}>Skin Releases</Link>
+            <Link className='links hover' to={'/my_comments'}>My Comments</Link>
         </nav>
         <div className='header-user'>
-            {isLogin? <button onClick={toLogOut}>Log Out</button> :<button onClick={() => {navigate('/login');}}>LogIn</button>}
-            <img src="https://placehold.co/30" alt="" />
-            <img src="https://placehold.co/30" alt="" />
+            {isLogin? <img className='right-icon' onClick={toLogOut} src="src/img/icons/user_icon.svg" alt="" /> :<button className='right-icon logIn hover' onClick={() => {navigate('/login');}}>Login</button>}
+            <img className='right-icon hover' src="src/img/icons/dark_theme_icon.svg" alt="" />
+            <img className='right-icon hover' src="src/img/icons/setting_icon.svg" alt="" />
         </div>
     </header>
   )

@@ -5,7 +5,8 @@ import SignIn from './components/SignIn/SignIn'
 import SkinOfTheDay from './components/SkinOfTheDay/SkinOfTheDay'
 import ChampSkinList from './components/ChampSkinList/ChampSkinList'
 import SkinRelease from './components/SkinRelease/SkinRelease'
-import {OnlyGuestRoute } from './routes/ProtectedRoute'
+import {OnlyGuestRoute, ProtectedRoute} from './routes/ProtectedRoute'
+import Comments from './components/Comments/comments'
 
 import {useRecoilState, useSetRecoilState} from "recoil"
 import {useState, useEffect} from "react"
@@ -14,19 +15,18 @@ import { jwtDecode } from "jwt-decode";
 import { AuthAtom, AuthUser } from './recoil/AuthAtom'
 
 
-
 function App() {
-  const [token, setToken] = useRecoilState(AuthAtom)
+  const [token, setToken] = useRecoilState(AuthAtom);
   const setAuthUser = useSetRecoilState(AuthUser); 
   const [loading, setLoading] = useState(true);
 
   const getNewAccessToken = () => {
-    console.log('updated')
+    console.log('updated');
     axios.post('http://127.0.0.1:8000/user/token/refresh', {refresh: token?.refresh})
     .then((res)=>{
-      setToken(res.data)
-      setAuthUser(jwtDecode(res.data.access))
-      localStorage.setItem('tokens', JSON.stringify(res.data))
+      setToken(res.data);
+      setAuthUser(jwtDecode(res.data.access));
+      localStorage.setItem('tokens', JSON.stringify(res.data));
     })
     .catch(() => {
       setToken(undefined);
@@ -34,7 +34,7 @@ function App() {
       localStorage.removeItem('tokens');
     })
     if (loading) {
-      setLoading(false)
+      setLoading(false);
     }
   }
   useEffect(()=>{
@@ -46,7 +46,7 @@ function App() {
         getNewAccessToken();
       }
     }, 1000*4*60)
-    return () => clearInterval(interval)
+    return () => clearInterval(interval);
   }, [token,loading])
 
   return (
@@ -58,6 +58,10 @@ function App() {
             <Route path='/login' element={<LogIn/>} />
             <Route path='/signin' element={<SignIn/>} />
           </Route>
+          <Route element={<ProtectedRoute/>}>
+            <Route path='/my_comments' element={<Comments/>}/>
+          </Route>
+
           <Route path='/skin_releases' element={<SkinRelease/>}/> 
           <Route path='/skin_of_the_day' element={<SkinOfTheDay/>} />
           <Route path='/skin/:name' element={<ChampSkinList/>}/>

@@ -4,14 +4,14 @@ import Header from '../Header/Header'
 import champList from './champList.json'
 import {useNavigate } from 'react-router-dom'
 
-const Home = () => {
+const Home : React.FC = () => {
   const navigate = useNavigate();
   const handleClick = (name:string) => {
     const nav_url = 'skin/' + name; 
     navigate(nav_url);
   }
-
   const champIconList = Object.keys(champList.data)
+  
   return (
     <div>
         <Header/>
