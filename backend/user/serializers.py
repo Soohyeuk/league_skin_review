@@ -11,6 +11,11 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
+class SingleUserSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = get_user_model()
+        fields = ['id', 'username', 'email']
+    
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

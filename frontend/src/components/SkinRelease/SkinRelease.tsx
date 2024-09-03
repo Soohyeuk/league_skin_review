@@ -43,7 +43,6 @@ const SkinRelease: React.FC = () => {
 
   return (
     <div>
-      <Header/>
       <div className='container'>
         <div className='title'>
           <h1>Release News</h1>

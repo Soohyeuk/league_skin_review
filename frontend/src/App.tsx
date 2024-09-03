@@ -6,7 +6,8 @@ import SkinOfTheDay from './components/SkinOfTheDay/SkinOfTheDay'
 import ChampSkinList from './components/ChampSkinList/ChampSkinList'
 import SkinRelease from './components/SkinRelease/SkinRelease'
 import {OnlyGuestRoute, ProtectedRoute} from './routes/ProtectedRoute'
-import Comments from './components/Comments/comments'
+import Header from './components/Header/Header'
+import Comments from './components/Comments/Comments'
 
 import {useRecoilState, useSetRecoilState} from "recoil"
 import {useState, useEffect} from "react"
@@ -49,22 +50,25 @@ function App() {
     return () => clearInterval(interval);
   }, [token,loading])
 
+  const shouldShowHeader = !['/login', '/signin'].includes(location.pathname);
   return (
     <>
+      {shouldShowHeader && <Header />}
       {loading ? null : (
       <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route element={<OnlyGuestRoute/>}> {/*this is a multi-layered route for Authentication page */}
-            <Route path='/login' element={<LogIn/>} />
-            <Route path='/signin' element={<SignIn/>} />
-          </Route>
-          <Route element={<ProtectedRoute/>}>
-            <Route path='/my_comments' element={<Comments/>}/>
-          </Route>
+        <Route path='/' element={<Home/>}/>
+        <Route element={<ProtectedRoute/>}>
+          <Route path='/my_comments' element={<Comments/>}/>
+        </Route>
 
-          <Route path='/skin_releases' element={<SkinRelease/>}/> 
-          <Route path='/skin_of_the_day' element={<SkinOfTheDay/>} />
-          <Route path='/skin/:name' element={<ChampSkinList/>}/>
+        <Route path='/skin_releases' element={<SkinRelease/>}/> 
+        <Route path='/skin_of_the_day' element={<SkinOfTheDay/>} />
+        <Route path='/skin/:name' element={<ChampSkinList/>}/>
+
+        <Route element={<OnlyGuestRoute/>}> {/*this is a multi-layered route for Authentication page */}
+          <Route path='/login' element={<LogIn/>} />
+          <Route path='/signin' element={<SignIn/>} />
+        </Route>
       </Routes>)}
     </>
   )

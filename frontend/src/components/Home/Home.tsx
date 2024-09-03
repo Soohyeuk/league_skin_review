@@ -14,7 +14,6 @@ const Home : React.FC = () => {
   
   return (
     <div>
-        <Header/>
         <div className='home-hero-container'>
           <div className='home-hero'>
             <h1>Have any skin you like? Leave a review!</h1>
