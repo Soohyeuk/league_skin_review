@@ -15,3 +15,4 @@ class SingleUserView(RetrieveUpdateDestroyAPIView):
 class AllUsersView(ListCreateAPIView):
     queryset = Users.objects.all()
     serializer_class = UserSerializer
+

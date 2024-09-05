@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import './SignIn.css';
+import axios from 'axios';
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -19,27 +20,11 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const url = 'http://127.0.0.1:8000/user/login/'; // Replace with your API endpoint
-
     try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const SignIn = await axios.post("http://127.0.0.1:8000/user/all_users", {});
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      const result = await res.json();
-      console.log('Success:', result);
-      // Handle success (e.g., redirect to another page or show a success message)
     } catch (error) {
       console.error('Error:', error);
-      // Handle error (e.g., show an error message)
     }
   };
 

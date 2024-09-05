@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Need the champion's name also
 
 class Skins(models.Model):
     skin_img = models.ImageField(upload_to='static/')
@@ -18,3 +18,4 @@ class Skins(models.Model):
         return  0 
     
     #need a function that calculates skin of the day/week (or it can be done with picking it manually every day/week).
+
