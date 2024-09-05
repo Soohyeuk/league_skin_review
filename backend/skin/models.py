@@ -3,6 +3,7 @@ from django.db import models
 # Need the champion's name also
 
 class Skins(models.Model):
+    champ_origin = models.CharField(max_length=30, default=True)
     skin_img = models.ImageField(upload_to='static/')
     skin_name = models.CharField(max_length=30, unique=True)
     release_date = models.DateTimeField()

@@ -4,4 +4,5 @@ from skin import views
 
 urlpatterns = [
     path('', views.SkinView.as_view()),
+    path('<int:pk>/', views.SingleSkinView.as_view()),
 ]
