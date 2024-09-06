@@ -6,5 +6,5 @@ class CommentSerializer(serializers.ModelSerializer):
     champ_origin = serializers.CharField(source='skin.champ_origin', read_only=True)
 
     class Meta: 
-        fields = ['id', 'champ_origin', 'skin_name', 'skin', 'body', 'rating', 'created_at']
+        fields = '__all__'
         model = Comments
