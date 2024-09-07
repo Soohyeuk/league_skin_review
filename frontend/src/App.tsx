@@ -24,7 +24,6 @@ function App() {
   const getNewAccessToken = async () => {
     console.log('updated');
   
-    // Add a lock to prevent multiple refresh requests at the same time
     if (refreshing) return;
     setRefreshing(true);
   
@@ -33,33 +32,33 @@ function App() {
         refresh: token?.refresh,
       });
   
-      setToken(res.data);  // Update token state
-      setAuthUser(jwtDecode(res.data.access));  // Decode and set auth user
-      localStorage.setItem('tokens', JSON.stringify(res.data));  // Save tokens to localStorage
+      setToken(res.data); 
+      setAuthUser(jwtDecode(res.data.access));  
+      localStorage.setItem('tokens', JSON.stringify(res.data));  
       console.log('Token refreshed successfully');
     } catch (error) {
       console.log('Error refreshing token, logging out', error);
-      setToken(undefined);  // Clear token state
-      setAuthUser(undefined);  // Clear auth user state
-      localStorage.removeItem('tokens');  // Remove tokens from localStorage
+      setToken(undefined);  
+      setAuthUser(undefined); 
+      localStorage.removeItem('tokens');  
     } finally {
       setRefreshing(false);
-      if (loading) setLoading(false);  // Ensure loading is set to false
+      if (loading) setLoading(false); 
     }
   };
   
   useEffect(() => {
     if (loading) {
-      getNewAccessToken();  // Initial token refresh
+      getNewAccessToken();  
     }
   
     const interval = setInterval(() => {
       if (token) {
-        getNewAccessToken();  // Periodic token refresh
+        getNewAccessToken();
       }
-    }, 1000 * 4 * 60);  // Refresh every 4 minutes
+    }, 1000 * 4 * 60)
   
-    return () => clearInterval(interval);  // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, [token, loading]);
   
   
