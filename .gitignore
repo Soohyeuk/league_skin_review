@@ -3,3 +3,5 @@
 *.db 
 *.DS_store
 *.rest 
+settings.py
+config.py
