@@ -20,35 +20,49 @@ function App() {
   const [token, setToken] = useRecoilState(AuthAtom);
   const setAuthUser = useSetRecoilState(AuthUser); 
   const [loading, setLoading] = useState(true);
-
-  const getNewAccessToken = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const getNewAccessToken = async () => {
     console.log('updated');
-    axios.post('http://127.0.0.1:8000/user/token/refresh', {refresh: token?.refresh})
-    .then((res)=>{
-      setToken(res.data);
-      setAuthUser(jwtDecode(res.data.access));
-      localStorage.setItem('tokens', JSON.stringify(res.data));
-    })
-    .catch(() => {
-      setToken(undefined);
-      setAuthUser(undefined);
-      localStorage.removeItem('tokens');
-    })
-    if (loading) {
-      setLoading(false);
+  
+    // Add a lock to prevent multiple refresh requests at the same time
+    if (refreshing) return;
+    setRefreshing(true);
+  
+    try {
+      const res = await axios.post('http://127.0.0.1:8000/user/token/refresh', {
+        refresh: token?.refresh,
+      });
+  
+      setToken(res.data);  // Update token state
+      setAuthUser(jwtDecode(res.data.access));  // Decode and set auth user
+      localStorage.setItem('tokens', JSON.stringify(res.data));  // Save tokens to localStorage
+      console.log('Token refreshed successfully');
+    } catch (error) {
+      console.log('Error refreshing token, logging out', error);
+      setToken(undefined);  // Clear token state
+      setAuthUser(undefined);  // Clear auth user state
+      localStorage.removeItem('tokens');  // Remove tokens from localStorage
+    } finally {
+      setRefreshing(false);
+      if (loading) setLoading(false);  // Ensure loading is set to false
     }
-  }
-  useEffect(()=>{
+  };
+  
+  useEffect(() => {
     if (loading) {
-      getNewAccessToken();
+      getNewAccessToken();  // Initial token refresh
     }
-    let interval = setInterval(()=> {
+  
+    const interval = setInterval(() => {
       if (token) {
-        getNewAccessToken();
+        getNewAccessToken();  // Periodic token refresh
       }
-    }, 1000*4*60)
-    return () => clearInterval(interval);
-  }, [token,loading])
+    }, 1000 * 4 * 60);  // Refresh every 4 minutes
+  
+    return () => clearInterval(interval);  // Cleanup interval on unmount
+  }, [token, loading]);
+  
+  
 
   const shouldShowHeader = !['/login', '/signin'].includes(location.pathname);
   return (

@@ -1,6 +1,5 @@
 import React from 'react'
 import './Home.css'
-import Header from '../Header/Header'
 import champList from './champList.json'
 import {useNavigate } from 'react-router-dom'
 
